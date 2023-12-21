@@ -1,0 +1,27 @@
+#
+# docker-compose.yaml
+# Copyright (C) 2022 morita <masamorobo(a)gmail.com>
+#
+
+version: '3'
+
+services:
+  openai_simple_chatbot_service:
+    container_name: openai_simple_chatbot_container
+    build:
+      context: .
+      dockerfile: docker-config/Dockerfile
+      target: openai-basic
+    privileged: true
+    network_mode: "host"
+    volumes:
+      - ./:/home/openai/Project/openai-simple-chatbot
+    environment:
+    #  - DISPLAY=:0
+      - DISPLAY=host.docker.internal:0.0
+    #  - LIBGL_ALWAYS_INDIRECT=1
+    #   - NO_AT_BRIDGE=1
+    #   - QT_X11_NO_MITSHM=1
+    entrypoint:
+      - bash
+      - -c
